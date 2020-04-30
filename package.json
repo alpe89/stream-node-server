@@ -1,0 +1,36 @@
+{
+  "name": "stream-node-server",
+  "version": "1.0.0",
+  "description": "An exercise to practice node streams",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alpe89/stream-node-server.git"
+  },
+  "keywords": [
+    "node",
+    "stream",
+    "javascript"
+  ],
+  "author": "Alberto Pertusi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alpe89/stream-node-server/issues"
+  },
+  "homepage": "https://github.com/alpe89/stream-node-server#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chalk": "^4.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0"
+  }
+}
