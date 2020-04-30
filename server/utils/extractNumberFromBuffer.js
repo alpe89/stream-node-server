@@ -5,8 +5,12 @@ const convertToBase10 = require("./convertToBase10");
  * @returns {number}
  */
 const extractNumberFromBuffer = value => {
-  const hexString = JSON.parse(value).value;
-  return convertToBase10(hexString);
+  try {
+    const hexString = JSON.parse(value).value;
+    return convertToBase10(hexString);
+  } catch (err) {
+    throw new Error('Encoding');
+  }
 };
 
 module.exports = extractNumberFromBuffer;

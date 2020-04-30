@@ -14,6 +14,7 @@
  * @returns {number} 
  */
 const convertToBase10 = hexString => {
+  if (hexString == null || hexString === '') throw new Error('Encoding');
   const hexArr = hexString.slice(2).split("");
 
   return hexArr

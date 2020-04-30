@@ -15,6 +15,7 @@ server.use(cors());
 
 server.get("/", (req, res) => {
   const numbers = { sum: 0, count: 0 };
+
   req
     .setEncoding('utf8')
     .on('data', chunk => {
@@ -22,9 +23,14 @@ server.get("/", (req, res) => {
         console.log(chalk.gray(`▶ ${extractNumberFromBuffer(chunk)}`));
         numbers.sum += extractNumberFromBuffer(chunk);
         numbers.count++;
-      } catch (e) {
-        res.sendStatus(400).send('Streaming Error, retry! ⛔')
+      } catch (err) {
+        req.emit('error');
       }
+    })
+    .on('error', () => {
+      console.log(chalk.bold.red('Encoding Error, retry! ⛔'));
+      res.writeHead(400, { 'Content-Type': 'text/plain' }).end('Encoding Error, retry! ⛔');
+      req.destroy();
     })
     .on('end', () => {
       console.log(chalk.bold.yellow(`This is the state at the end of the stream ${JSON.stringify(numbers)} 📋`));
@@ -32,6 +38,7 @@ server.get("/", (req, res) => {
         .writeHead(200, { 'Content-Type': 'text/plain' })
         .end(numbers.count > 0 ? (numbers.sum / numbers.count).toFixed(2) : 0);
     });
+
 });
 
 server.listen(PORT, () => {
